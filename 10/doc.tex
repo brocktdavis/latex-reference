@@ -1,0 +1,390 @@
+\documentclass{article}
+
+% To compile:
+%   pdflatex doc.tex
+%   bibtex doc
+%   pdflatex doc.tex
+%   pdflatex doc.tex
+
+% Packages (these must be included in preamble)
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{setspace}
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\bibliography{doc}
+\usepackage{siunitx} % Required for table alignment
+\sisetup{
+  round-mode       = places, % Rounds numbers
+  round-precision  = 2, % to 2 places
+}
+\usepackage{multirow} % Required for multirows
+\usepackage{booktabs} % For prettier tables
+\usepackage{pgfplotstable} % Generates table from .csv
+
+%\setcounter{tocdepth}{1} % Show sections
+%\setcounter{tocdepth}{2} % + subsections
+\setcounter{tocdepth}{3} % + subsubsections
+%\setcounter{tocdepth}{4} % + paragraphs
+%\setcounter{tocdepth}{5} % + subparagraphs
+
+% Preamble
+\title{Brock's LaTeX learning}
+\date{2020-11-29}
+\author{Brock T Davis}
+
+\begin{document}
+
+  % Title page
+  \maketitle
+  \pagenumbering{gobble}
+  \newpage
+
+  % Table of Contents
+  \doublespacing
+  \tableofcontents
+  \singlespacing
+  \newpage
+
+
+  \pagenumbering{arabic}
+
+  % ---------
+  % Section 1
+  % ---------
+  \section{Doing some math stuff right here}
+    Time to learn some LaTeX!
+
+    \subsection{Some functions}
+
+      A good ole function:
+      \begin{equation}
+        f(x) = x^2
+      \end{equation}
+
+      An unnumbered function
+      \begin{equation*}
+        f_2(x) = x^3
+      \end{equation*}
+
+    \subsubsection{Some more functions}
+      An example of an inline equation would be something like $f(x) = x ^3 + 3x^2 + 33$ and it's really neat!
+
+      \noindent
+      Also, align environment is really cool to align stuff.
+      For example:
+      \begin{align*}
+        1 + 3 &= 3 \\
+        1 &= 3 - 2
+      \end{align*}
+
+      \noindent
+      Or:
+      \begin{align*}
+        f(x) &= x^2 \\
+        g(x) &= \frac{1}{x} \\
+        F(x) &= \int^a_b \frac{1}{3}x^3
+      \end{align*}
+
+    \subsubsection{Matrix Time!}
+      Matrix no brackets:
+      \begin{align*}
+      \begin{matrix}
+        1 & 0 \\
+        0 & 1
+      \end{matrix}
+      \end{align*}
+
+      \noindent
+      Matrix wrong brackets:
+      \begin{equation*}
+      [
+      \begin{matrix}
+        1 & 0 \\
+        0 & 1
+      \end{matrix}
+      ]
+      \end{equation*}
+
+      \noindent
+      Matrix correct brackets:
+      $
+      \left[
+      \begin{matrix}
+        1 & 0 \\
+        0 & 1
+      \end{matrix}
+      \right]
+      $
+
+    \paragraph{Pp}
+      Some more text.
+
+    \paragraph{pp2}
+      Some more more text.
+
+    \subsection{Somethin else}
+      Hey-O
+
+    \paragraph{Yet another thing}
+      Text time!
+
+  % ---------
+  % Section 2
+  % ---------
+  \section{Figure Stuff}
+    Doing some images and figures here
+
+    % Setting float can be done with \begin{figure}[...]
+    % h (here) - same location
+    % t (top) - top of page
+    % b (bottom) - bottom of page
+    % p (page) - on an extra page
+    % ! (override) - will force specified location
+    \begin{figure}[h!]
+      \includegraphics[width=\linewidth]{boat.jpeg}
+      \caption{A boat.}
+      \label{fig:boat1}
+    \end{figure}
+
+    \begin{figure}[h!]
+      \includegraphics[width=\linewidth]{boat.jpeg}
+      \caption{The same boat}
+      \label{fig:boat2}
+    \end{figure}
+
+    \begin{figure}[b]
+      \centering
+      % These linewidth should be 0.1 less than what you expect
+      \begin{subfigure}[b]{0.4\linewidth}
+        \includegraphics[width=\linewidth]{boat.jpeg}
+        \caption{Boaty McBoatface.}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\linewidth}
+        \includegraphics[width=\linewidth]{boat.jpeg}
+        \caption{Boaty McBoatface 2.}
+      \end{subfigure}
+      \caption{An armada of boats.}
+      \label{fig:boats}
+    \end{figure}
+
+    Figure \ref{fig:boat1} shows a boat.
+
+  % ---------
+  % Section 3
+  % ---------
+  \section{Citation Stuff and Footnotes}
+    \subsection{Citation Stuff}
+    Doing a book citation \autocite[31]{BOOK:1} here.
+    And now it's time for an article citation \autocite[697]{ARTICLE:1}.
+    Next up is another book \autocite[155]{BOOK:2} citation.
+    Lastly, we have the website \autocite[]{WEBSITE:1} citation.
+
+    \subsection{Footnotes}
+    This is some example text\footnote{\label{myfootnote}Hello footnote}.
+
+    \paragraph{A new Paragraph to mention the footnote.}
+    Here I am mentioning a previous footnote, specifically I'm referring to this \ref{myfootnote} footnote.
+
+
+  % ---------
+  % Section 4
+  % ---------
+  \section {Tables}
+    \subsection{A Basic Table}
+    \begin{table}[h!]
+      \begin{center}
+        \caption{Your first table.}
+        \label{tab:table1}
+        \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+          \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+          $\alpha$ & $\beta$ & $\gamma$ \\
+          \hline
+          1 & 1110.1 & a\\
+          2 & 10.1 & b\\
+          3 & 23.113231 & c\\
+        \end{tabular}
+      \end{center}
+    \end{table}
+
+    \subsection{Aligned Table}
+    \begin{table}[h!]
+      \begin{center}
+        \caption{Table with aligned units.}
+        \label{tab:table2}
+        \begin{tabular}{l|S|r} % <-- Changed to S here.
+          \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+          $\alpha$ & $\beta$ & $\gamma$ \\
+          \hline
+          1 & 1110.1 & a\\
+          2 & 10.1 & b\\
+          3 & 23.113231 & c\\
+        \end{tabular}
+      \end{center}
+    \end{table}
+
+    \subsection{Multiple row cell}
+    \begin{table}[h!]
+      \begin{center}
+        \caption{Multirow table.}
+        \label{tab:table3}
+        \begin{tabular}{l|S|r}
+          \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+          $\alpha$ & $\beta$ & $\gamma$ \\
+          \hline
+          \multirow{2}{*}{12} & 1110.1 & a\\ % <-- Combining 2 rows with arbitrary with (*) and content 12
+          & 10.1 & b\\ % <-- Content of first column omitted.
+          \hline
+          3 & 23.113231 & c\\
+          4 & 25.113231 & d\\
+        \end{tabular}
+      \end{center}
+    \end{table}
+
+    \subsection{Multiple column cell}
+    \begin{table}[h!]
+      \begin{center}
+        \caption{Multicolumn table.}
+        \label{tab:table4}
+        \begin{tabular}{l|S|r}
+          \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+          $\alpha$ & $\beta$ & $\gamma$ \\
+          \hline
+          \multicolumn{2}{c|}{12} & a\\ % <-- Combining two cells with alignment c| and content 12.
+          \hline
+          2 & 10.1 & b\\
+          3 & 23.113231 & c\\
+          4 & 25.113231 & d\\
+        \end{tabular}
+      \end{center}
+    \end{table}
+
+    \subsection{Mutiple row and column cell}
+    \begin{table}[h!]
+      \begin{center}
+        \caption{Multirow and column table.}
+        \label{tab:table5}
+        \begin{tabular}{l|S|r}
+          \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+          $\alpha$ & $\beta$ & $\gamma$ \\
+          \hline
+          \multicolumn{2}{c|}{\multirow{2}{*}{1234}} & a\\ % <-- Multicolumn spanning 2 columns, content multirow spanning two rows
+          \multicolumn{2}{c|}{} & b\\ % <-- Multicolumn spanning 2 columns with empty content as placeholder
+          \hline
+          3 & 23.113231 & c\\
+          4 & 25.113231 & d\\
+        \end{tabular}
+      \end{center}
+    \end{table}
+
+    \subsection{A Prettier Table}
+    \begin{table}[h!]
+      \begin{center}
+        \caption{Table using booktabs.}
+        \label{tab:table6}
+        \begin{tabular}{l|S|r}
+          \toprule % <-- Toprule here
+          \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+          $\alpha$ & $\beta$ & $\gamma$ \\
+          \midrule % <-- Midrule here
+          1 & 1110.1 & a\\
+          2 & 10.1 & b\\
+          3 & 23.113231 & c\\
+          \bottomrule % <-- Bottomrule here
+        \end{tabular}
+      \end{center}
+    \end{table}
+
+  % ---------
+  % Section 5
+  % ---------
+  \section{Autogenerated Tables}
+    % \begin{table}[h!]
+    %   \begin{center}
+    %     \caption{Autogenerated table from .csv file.}
+    %     \label{autogentab1}
+    %     \pgfplotstabletypeset[
+    %       multicolumn names, % allows to have multicolumn names
+    %       col sep=comma, % the seperator in our .csv file
+
+    %       % Column 0 style
+    %       display columns/0/.style={
+    %         column name=$Value 1$, % name of first column
+    %         column type={S},string type % use siunitx for formatting
+    %       },
+
+    %       % Column 1 style
+    %       display columns/1/.style={
+    %         column name=$Value 2$,
+    %         column type={S},string type
+    %       },
+
+    %       % Column 2 style
+    %       display columns/2/.style={
+    %         column name=$Value 3$,
+    %         column type={S},string type,
+    %       },
+
+    %       % Head row styles
+    %       every head row/.style={
+    %         before row={\toprule}, % have a rule at top
+    %         after row={
+    %           \si{\ampere} & \si{\volt} & \si{\tesla} \\ % the units seperated by &
+    %           \midrule % rule under units
+    %         },
+    %       },
+    %       every last row/.style={after row=\bottomrule}, % rule at bottom
+    %     ]{data.csv} % filename/path to file
+    %   \end{center}
+    % \end{table}
+
+    \begin{table}[h!]
+      \begin{center}
+        \caption{Autogenerated table from .csv file.}
+        \label{autogentab1}
+        % autogen plot params, no blank lines
+        \pgfplotstabletypeset[
+          multicolumn names, % allows to have multicolumn names
+          col sep=comma, % the seperator in our .csv file
+          % Column 0 format
+          display columns/0/.style={
+            column name=$Value 1$, % name of first column
+            column type={S},string type % use siunitx for formatting
+          },
+          % Column 1 format
+          display columns/1/.style={
+            column name=$Value 2$,
+            column type={S},string type
+          },
+          % Column 2 format
+          display columns/2/.style={
+            column name=$Value 3$,
+            column type={S},string type
+          },
+          % Header row format
+          every head row/.style={
+            before row={\toprule}, % have a rule at top
+            after row={
+              \si{\ampere} & \si{\volt} & \si{\tesla}\\ % the units seperated by &
+              \midrule} % rule under units
+            },
+          % Last row format
+          every last row/.style={after row=\bottomrule}, % rule at bottom
+        ]{data.csv} % filename/path to file
+      \end{center}
+    \end{table}
+
+  \newpage
+  \printbibliography
+
+  % --------
+  % Appendix
+  % --------
+  \newpage
+  \newpage
+  \begin{appendix}
+    \listoffigures
+    \listoftables
+  \end{appendix}
+
+\end{document}
